@@ -4,7 +4,7 @@
 <br>
 <br>
 
-## <p align=center><strong>To execute this app you will need to install: </strong></p>
+## <p align=center><strong>To execute an app you will need to install: </strong></p>
 
 - [Node.js](https://nodejs.org/en/)
 - [Npm](https://www.npmjs.com/) ou [Yarn](https://yarnpkg.com/)
