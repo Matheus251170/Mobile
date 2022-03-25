@@ -1,5 +1,5 @@
 # <p align=center>Mobile</p>
-### <p align=center>Mobile Projects with React-Native.</p>
+### <p align=center>Mobile Projects.</p>
 
 <br>
 <br>
