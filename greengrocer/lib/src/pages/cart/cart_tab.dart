@@ -19,6 +19,8 @@ class _CartTabState extends State<CartTab> {
   void removeItemFromCart(CartItemModel cartItem) {
     setState(() {
       appData.listCart.remove(cartItem);
+
+      utils.showToast(message: "${cartItem.item.itemName} removido com suceeso!", context: context);
     });
   }
 
@@ -101,8 +103,6 @@ class _CartTabState extends State<CartTab> {
                           return PaymentDialog(orderModel: appData.orders.first,);
                         });
                       }
-
-                      print(result);
                     },
                     child: const Text(
                       "Concluir pedido",
