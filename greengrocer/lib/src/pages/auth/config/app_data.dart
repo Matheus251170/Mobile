@@ -32,7 +32,7 @@ ItemModel kiwi = ItemModel(
     unit: 'uni');
 
 ItemModel mango = ItemModel(
-    itemName: 'mango',
+    itemName: 'Manga',
     description: 'Manga top, Manga doce, Manga gostosa',
     imgUrl: 'assets/fruits/mango.png',
     price: 7.5,
@@ -71,10 +71,28 @@ UserModel user = UserModel(
 List<OrderModel> orders = [
   OrderModel(
       "sd651w234wdas",
-      DateTime.parse('2022-16-11 10:00:10.456'),
-      DateTime.parse('2022-16-11 12:00:10.456'),
-      [CartItemModel(item: apple, qtd: 2)],
-      "pendente",
+      DateTime.parse('2022-11-11 10:00:10.456'),
+      DateTime.parse('2022-25-11 12:00:10.456'),
+      [CartItemModel(item: apple, qtd: 2), CartItemModel(item: mango, qtd: 3)],
+      "preparing_purchase",
       "54rsd2f1sr5g",
       11),
+
+  OrderModel(
+      "sd651w234wdas",
+      DateTime.parse('2022-11-11 10:00:10.456'),
+      DateTime.parse('2022-25-11 12:00:10.456'),
+      [CartItemModel(item: apple, qtd: 2), CartItemModel(item: mango, qtd: 3)],
+      "pending_payment",
+      "54rsd2f1sr5g",
+      11),
+
+  OrderModel(
+      "as4d65a4sd645",
+      DateTime.parse('2022-16-11 13:00:10.456'),
+      DateTime.parse('2022-25-11 15:00:10.456'),
+      [CartItemModel(item: papaya, qtd: 9), CartItemModel(item: grape, qtd: 6)],
+      "delivered",
+      "6a5s4d56as",
+      23),
 ];

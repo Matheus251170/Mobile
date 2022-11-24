@@ -13,9 +13,16 @@ class OrdersTab extends StatelessWidget {
         title: const Text("Pedidos"),
       ),
       body: ListView.separated(
-          padding: const EdgeInsets.all(16),
-          physics: const BouncingScrollPhysics(),
-          itemBuilder: (_, index) => OrderTile(orderModel: appData.orders[index]), separatorBuilder: (_, index) => SizedBox(height: 10,), itemCount: appData.orders.length),
+        padding: const EdgeInsets.all(16),
+        physics: const BouncingScrollPhysics(),
+        itemBuilder: (_, index) => OrderTile(
+          orderModel: appData.orders[index],
+        ),
+        separatorBuilder: (_, index) => const SizedBox(
+          height: 10,
+        ),
+        itemCount: appData.orders.length,
+      ),
     );
   }
 }
