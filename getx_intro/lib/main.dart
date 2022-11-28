@@ -40,32 +40,36 @@ class HomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             //valor
-            GetBuilder<ValueController>(
+            GetX<ValueController>(
               init: valueController,
               builder: (controller) =>
                   Text("Value: ${controller.definedValue}"),
             ),
 
             //campo
-            TextField(
-              controller: textController,
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 32.0),
+              child: TextField(
+                controller: textController,
+              ),
             ),
 
             //botao
-            GetBuilder<ValueController>(
-                init: valueController,
-                builder: (c) {
-                  return c.isLoading
-                      ? CircularProgressIndicator()
-                      : ElevatedButton(
-                          onPressed: () {
-                            String value = textController.text;
+            GetX<ValueController>(
+              init: valueController,
+              builder: (c) {
+                return c.isLoading.value
+                    ? CircularProgressIndicator()
+                    : ElevatedButton(
+                        onPressed: () {
+                          String value = textController.text;
 
-                            valueController.setValue(value);
-                          },
-                          child: Text('Confirmar'),
-                        );
-                }),
+                          valueController.setValue(value);
+                        },
+                        child: Text('Confirmar'),
+                      );
+              },
+            ),
           ],
         ),
       ),
