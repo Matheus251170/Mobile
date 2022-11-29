@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:getx_intro/user_model.dart';
 
-class MyController extends GetxController {
+class UserController extends GetxController {
   Rx<UserModel> user = UserModel().obs;
 
   void setUsername(String username) {

@@ -7,7 +7,7 @@ void main() {
 
   // Get.put<MyController>(MyController());
 
-  Get.lazyPut<MyController>(() => MyController());
+  Get.lazyPut<UserController>(() => UserController());
 
   runApp(const MyApp());
 }
@@ -35,7 +35,7 @@ class HomePage extends StatelessWidget {
   final nameController = TextEditingController();
   final ageController = TextEditingController();
 
-  final userController = Get.find<MyController>();
+  final userController = Get.find<UserController>();
 
   TextStyle commonStyle() =>
       const TextStyle(
@@ -286,11 +286,11 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class DataScreen extends StatelessWidget {
+class DataScreen extends GetView<UserController> {
 
-  final MyController userController = Get.find();
+  // final MyController userController = Get.find();
 
-  DataScreen({
+  const DataScreen({
     Key? key,}) : super(key: key);
 
   TextStyle commonStyle() =>
@@ -312,7 +312,7 @@ class DataScreen extends StatelessWidget {
             // Apresentação do nome
             Obx(() {
               return Text(
-                'nome: ${userController.user.value.name}',
+                'nome: ${controller.user.value.name}',
                 style: commonStyle(),
               );
             }),
@@ -320,7 +320,7 @@ class DataScreen extends StatelessWidget {
             // Apresentação da idade
         Obx(() {
               return Text(
-                'idade: ${userController.user.value.age}',
+                'idade: ${controller.user.value.age}',
                 style: commonStyle(),
               );
             }),
