@@ -1,6 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:greengrocer/src/pages/auth/controller/auth_controller.dart';
 import 'package:greengrocer/src/pages/pages_route/app_pages.dart';
 import 'package:greengrocer/src/pages/widgets/app_widget_name.dart';
 import 'package:greengrocer/src/pages/widgets/custom_text_field.dart';
@@ -12,8 +13,8 @@ class SignInScreen extends StatelessWidget {
   SignInScreen({Key? key}) : super(key: key);
 
   final _formKey = GlobalKey<FormState>();
-  final  emailController = TextEditingController();
-  final  passController = TextEditingController();
+  final emailController = TextEditingController();
+  final passController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,8 @@ class SignInScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     //nome do app
-                    const AppWidgetName(greenTitleColor: Colors.white, textSize: 40),
+                    const AppWidgetName(
+                        greenTitleColor: Colors.white, textSize: 40),
                     SizedBox(
                       height: 30,
                       child: DefaultTextStyle(
@@ -76,11 +78,11 @@ class SignInScreen extends StatelessWidget {
                         icon: Icons.email,
                         label: 'Email',
                         validator: (email) {
-                          if(email == null || email.isEmpty) {
+                          if (email == null || email.isEmpty) {
                             return "Insira um email válido!";
                           }
 
-                          if(!email.isEmail) {
+                          if (!email.isEmail) {
                             return "Insira um email válido!";
                           }
 
@@ -94,11 +96,11 @@ class SignInScreen extends StatelessWidget {
                         label: 'Senha',
                         isPass: true,
                         validator: (pass) {
-                          if(pass == null || pass.isEmpty) {
+                          if (pass == null || pass.isEmpty) {
                             return "Insira uma senha válida!";
                           }
 
-                          if(pass.length < 7) {
+                          if (pass.length < 7) {
                             return "A senha deve ter mais de 7 caracteres!";
                           }
 
@@ -108,34 +110,43 @@ class SignInScreen extends StatelessWidget {
                       //BOTÃO ENTRAR
                       SizedBox(
                         height: 50,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18),
-                            ),
-                          ),
-                          onPressed: () {
-                            // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (c){
-                            //   return const BaseScreen();
-                            // }));
+                        child: GetX<AuthController>(
+                          builder: (authController) {
+                            return ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18),
+                                ),
+                              ),
+                              onPressed: authController.isLoading.isTrue
+                                  ? null
+                                  : () {
+                                      // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (c){
+                                      //   return const BaseScreen();
+                                      // }));
 
-                            if(_formKey.currentState!.validate()) {
-                              // Get.offNamed(PagesRoutes.baseRoute);
-                              String email = emailController.text;
-                              String pass = passController.text;
-                              print('email: $email');
-                              print('pass: $pass');
-                            }
-                            else{
-                              print("INVALIDO");
-                            }
+                                FocusScope.of(context).unfocus();
+
+                                      if (_formKey.currentState!.validate()) {
+                                        // Get.offNamed(PagesRoutes.baseRoute);
+                                        String email = emailController.text;
+                                        String password = passController.text;
+                                        authController.signIn(
+                                            email: email, password: password);
+                                      } else {
+                                        print("INVALIDO");
+                                      }
+                                    },
+                              child: authController.isLoading.isTrue
+                                  ? const CircularProgressIndicator()
+                                  : const Text(
+                                      "Entrar",
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                            );
                           },
-                          child: const Text(
-                            "Entrar",
-                            style: TextStyle(
-                              fontSize: 18,
-                            ),
-                          ),
                         ),
                       ),
                       //BOTÃO ESQUECEU A SENHA
