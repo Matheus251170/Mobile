@@ -1,5 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:greengrocer/src/pages/pages_route/app_pages.dart';
 import 'package:greengrocer/src/pages/widgets/app_widget_name.dart';
 import 'package:greengrocer/src/pages/widgets/custom_text_field.dart';
 import 'package:greengrocer/src/pages/auth/component/sign_up_screen.dart';
@@ -7,7 +9,9 @@ import 'package:greengrocer/src/pages/auth/config/custom_colors.dart';
 import 'package:greengrocer/src/pages/base/base_screen.dart';
 
 class SignInScreen extends StatelessWidget {
-  const SignInScreen({Key? key}) : super(key: key);
+  SignInScreen({Key? key}) : super(key: key);
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -59,110 +63,145 @@ class SignInScreen extends StatelessWidget {
                     color: Colors.white,
                     borderRadius:
                         BorderRadius.vertical(top: Radius.circular(40))),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    //EMAIL
-                    const CustomTextField(
-                      icon: Icons.email,
-                      label: 'Email',
-                    ),
-                    //SENHA
-                    const CustomTextField(
-                      icon: Icons.lock,
-                      label: 'Senha',
-                      isPass: true,
-                    ),
-                    //BOTÃO ENTRAR
-                    SizedBox(
-                      height: 50,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18),
-                          ),
-                        ),
-                        onPressed: () {
-                          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (c){
-                            return const BaseScreen();
-                          }));
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      //EMAIL
+                      CustomTextField(
+                        icon: Icons.email,
+                        label: 'Email',
+                        validator: (email) {
+                          if(email == null || email.isEmpty) {
+                            return "Insira um email válido!";
+                          }
+
+                          if(!email.isEmail) {
+                            return "Insira um email válido!";
+                          }
+
+                          return null;
                         },
-                        child: const Text(
-                          "Entrar",
-                          style: TextStyle(
-                            fontSize: 18,
-                          ),
-                        ),
                       ),
-                    ),
-                    //BOTÃO ESQUECEU A SENHA
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          'Esqueceu a senha?',
-                          style: TextStyle(
-                              color: CustomColors.customContrastColor),
-                        ),
+                      //SENHA
+                      CustomTextField(
+                        icon: Icons.lock,
+                        label: 'Senha',
+                        isPass: true,
+                        validator: (pass) {
+                          if(pass == null || pass.isEmpty) {
+                            return "Insira uma senha válida!";
+                          }
+
+                          if(pass.length < 7) {
+                            return "A senha deve ter mais de 7 caracteres!";
+                          }
+
+                          return null;
+                        },
                       ),
-                    ),
-
-                    // DIVISOR
-
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 15.0),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Divider(
-                              color: Colors.grey.withAlpha(90),
-                              thickness: 2,
-                            ),
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 12),
-                            child: Text('ou'),
-                          ),
-                          Expanded(
-                            child: Divider(
-                              color: Colors.grey.withAlpha(90),
-                              thickness: 2,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    //BOTÃO CRIAR CONTA
-                    SizedBox(
-                      height: 50,
-                      child: OutlinedButton(
-                        style: OutlinedButton.styleFrom(
-                            side: BorderSide(
-                                width: 2,
-                                color: CustomColors.customSwatchColor),
+                      //BOTÃO ENTRAR
+                      SizedBox(
+                        height: 50,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            )),
-                        onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (c) {
-                                return SignUpScreen();
-                              },
+                              borderRadius: BorderRadius.circular(18),
                             ),
-                          );
-                        },
-                        child: const Text(
-                          'Criar conta',
-                          style: TextStyle(
-                            fontSize: 18,
+                          ),
+                          onPressed: () {
+                            // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (c){
+                            //   return const BaseScreen();
+                            // }));
+
+                            if(_formKey.currentState!.validate()) {
+                              // Get.offNamed(PagesRoutes.baseRoute);
+                              print("Valido");
+                            }
+                            else{
+                              print("INVALIDO");
+                            }
+                          },
+                          child: const Text(
+                            "Entrar",
+                            style: TextStyle(
+                              fontSize: 18,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                      //BOTÃO ESQUECEU A SENHA
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: TextButton(
+                          onPressed: () {},
+                          child: Text(
+                            'Esqueceu a senha?',
+                            style: TextStyle(
+                                color: CustomColors.customContrastColor),
+                          ),
+                        ),
+                      ),
+
+                      // DIVISOR
+
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 15.0),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Divider(
+                                color: Colors.grey.withAlpha(90),
+                                thickness: 2,
+                              ),
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 12),
+                              child: Text('ou'),
+                            ),
+                            Expanded(
+                              child: Divider(
+                                color: Colors.grey.withAlpha(90),
+                                thickness: 2,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      //BOTÃO CRIAR CONTA
+                      SizedBox(
+                        height: 50,
+                        child: OutlinedButton(
+                          style: OutlinedButton.styleFrom(
+                              side: BorderSide(
+                                  width: 2,
+                                  color: CustomColors.customSwatchColor),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15),
+                              )),
+                          onPressed: () {
+                            // Navigator.of(context).push(
+                            //   MaterialPageRoute(
+                            //     builder: (c) {
+                            //       return SignUpScreen();
+                            //     },
+                            //   ),
+                            // );
+
+                            Get.toNamed(PagesRoutes.signUpRoute);
+                          },
+                          child: const Text(
+                            'Criar conta',
+                            style: TextStyle(
+                              fontSize: 18,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
