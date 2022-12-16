@@ -12,6 +12,8 @@ class SignInScreen extends StatelessWidget {
   SignInScreen({Key? key}) : super(key: key);
 
   final _formKey = GlobalKey<FormState>();
+  final  emailController = TextEditingController();
+  final  passController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -70,6 +72,7 @@ class SignInScreen extends StatelessWidget {
                     children: [
                       //EMAIL
                       CustomTextField(
+                        controller: emailController,
                         icon: Icons.email,
                         label: 'Email',
                         validator: (email) {
@@ -86,6 +89,7 @@ class SignInScreen extends StatelessWidget {
                       ),
                       //SENHA
                       CustomTextField(
+                        controller: passController,
                         icon: Icons.lock,
                         label: 'Senha',
                         isPass: true,
@@ -117,7 +121,10 @@ class SignInScreen extends StatelessWidget {
 
                             if(_formKey.currentState!.validate()) {
                               // Get.offNamed(PagesRoutes.baseRoute);
-                              print("Valido");
+                              String email = emailController.text;
+                              String pass = passController.text;
+                              print('email: $email');
+                              print('pass: $pass');
                             }
                             else{
                               print("INVALIDO");
