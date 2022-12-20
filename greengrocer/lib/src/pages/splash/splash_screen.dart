@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:greengrocer/src/pages/auth/config/custom_colors.dart';
-import 'package:greengrocer/src/pages/auth/sign_in_screen.dart';
+import 'package:greengrocer/src/pages/auth/view/sign_in_screen.dart';
 import 'package:greengrocer/src/pages/pages_route/app_pages.dart';
 import 'package:greengrocer/src/pages/widgets/app_widget_name.dart';
 
