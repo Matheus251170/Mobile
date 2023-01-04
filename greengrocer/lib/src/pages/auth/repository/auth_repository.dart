@@ -16,7 +16,7 @@ class AuthRepository {
       print("ENTROU");
       print(result['result']);
 
-      final user = UserModel.fromMap(result['result']);
+      final user = UserModel.fromJson(result['result']);
 
       print(user);
 
