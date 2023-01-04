@@ -13,6 +13,10 @@ class AuthController extends GetxController {
   final UtilsServices utils = UtilsServices();
   UserModel user = UserModel();
 
+  Future<void> validateToken() async{
+    // authRepository.validateToken(token);
+  }
+
   Future<void> signIn({required String email, required String password}) async {
     isLoading.value = true;
 
