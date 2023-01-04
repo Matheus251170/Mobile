@@ -3,6 +3,7 @@ import 'package:greengrocer/src/models/user_model.dart';
 import 'package:greengrocer/src/pages/auth/repository/auth_errors.dart';
 import 'package:greengrocer/src/pages/auth/result/auth_result.dart';
 import 'package:greengrocer/src/services/http_service.dart';
+import 'package:greengrocer/src/services/utils_services.dart';
 
 class AuthRepository {
   final HttpManager _httpManager = HttpManager();

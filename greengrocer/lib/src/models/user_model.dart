@@ -13,13 +13,13 @@ class UserModel {
   String? token;
 
   UserModel({
-    required this.name,
-    required this.email,
-    required this.phone,
-    required this.cpf,
-    required this.passwod,
-    required this.id,
-    required this.token,
+    this.name,
+    this.email,
+    this.phone,
+    this.cpf,
+    this.passwod,
+    this.id,
+    this.token,
   });
 
   // factory UserModel.fromMap(Map<String, dynamic> map) {

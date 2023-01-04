@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:greengrocer/src/pages/auth/controller/auth_controller.dart';
+import 'package:greengrocer/src/pages/auth/repository/navigation_service.dart';
 import 'package:greengrocer/src/pages/pages_route/app_pages.dart';
 
 void main() {
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.green,
         scaffoldBackgroundColor: Colors.white.withAlpha(190),
       ),
+      navigatorKey: NavigationService.navigatorKey,
       debugShowCheckedModeBanner: false,
       initialRoute: PagesRoutes.splashRoute,
       getPages: AppPages.pages,
