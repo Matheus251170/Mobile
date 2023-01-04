@@ -19,7 +19,7 @@ class AuthController extends GetxController {
     }, error: (message) {
       print(message);
     });
-  freezed annotationm}
+  }
 
   Future<void> signUp(
       {required String email,
