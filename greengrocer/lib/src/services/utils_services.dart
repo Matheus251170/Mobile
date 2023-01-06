@@ -1,11 +1,30 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:greengrocer/src/pages/auth/config/custom_colors.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:motion_toast/motion_toast.dart';
 import 'package:motion_toast/resources/arrays.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class UtilsServices {
+
+  final storage = const FlutterSecureStorage();
+
+  //salva dado localmente
+  Future<void> saveLocalData({required String key, required String data}) async{
+
+    await storage.write(key: key, value: data)
+  }
+
+  Future<String?> getLocalData({required String key}) async {
+    return await storage.read(key: key);
+  }
+
+  Future<void> removeLocalData({required String key}) async {
+    await storage.delete(key: key);
+  }
 
   //String R$
   String priceToCurrency(double price){
