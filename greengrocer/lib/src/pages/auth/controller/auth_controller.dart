@@ -80,17 +80,16 @@ class AuthController extends GetxController {
   Future<void> signUp() async{
     isLoading.value = true;
 
-    // await Future.delayed(
-    //   const Duration(seconds: 2),
-    // );
-
     AuthResult result = await authRepository.signUp(user);
 
     result.when(success: (user){
       this.user = user;
       saveTokenAndProceedToBase();
     }, error: (message){
-
+      utils.showToast(
+          message: message,
+          isError: true,
+          context: NavigationService.navigatorKey.currentContext);
     });
 
     isLoading.value = false;

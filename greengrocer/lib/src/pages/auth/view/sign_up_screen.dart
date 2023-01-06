@@ -9,24 +9,25 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 class SignUpScreen extends StatelessWidget {
   SignUpScreen({Key? key}) : super(key: key);
 
+  final authController = Get.find<AuthController>();
+
   final cpfFormatter = MaskTextInputFormatter(
       mask: '###.###.###-##', filter: {'#': RegExp(r'[0-9]')});
 
   final phoneFormatter = MaskTextInputFormatter(
       mask: '(##) # ####-####', filter: {'#': RegExp(r'[0-9]')});
 
-    final _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
 
-    final emailController = TextEditingController();
-    final passController = TextEditingController();
-    final nameController = TextEditingController();
-    final cellController = TextEditingController();
-    final cpfController = TextEditingController();
+  final emailController = TextEditingController();
+  final passController = TextEditingController();
+  final nameController = TextEditingController();
+  final cellController = TextEditingController();
+  final cpfController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
 
     return Scaffold(
       backgroundColor: CustomColors.customSwatchColor,
@@ -60,27 +61,39 @@ class SignUpScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          const CustomTextField(
+                          CustomTextField(
                             icon: Icons.email,
                             textInputType: TextInputType.emailAddress,
                             label: 'Email',
+                            onSaved: (value) {
+                              authController.user.email = value;
+                            },
                             validator: emailValidator,
                           ),
-                          const CustomTextField(
+                          CustomTextField(
                             icon: Icons.lock,
                             label: 'Senha',
+                            onSaved: (value) {
+                              authController.user.passwod = value;
+                            },
                             isPass: true,
                             validator: passwordValidator,
                           ),
-                          const CustomTextField(
+                          CustomTextField(
                             icon: Icons.person,
                             label: 'Nome',
+                            onSaved: (value) {
+                              authController.user.name = value;
+                            },
                             validator: nomeValidator,
                           ),
                           CustomTextField(
                             icon: Icons.phone,
                             inputFormatters: [phoneFormatter],
                             textInputType: TextInputType.phone,
+                            onSaved: (value) {
+                              authController.user.phone = value;
+                            },
                             label: 'Celular',
                             validator: phoneValidator,
                           ),
@@ -88,13 +101,16 @@ class SignUpScreen extends StatelessWidget {
                             icon: Icons.file_copy,
                             inputFormatters: [cpfFormatter],
                             label: 'CPF',
+                            onSaved: (value) {
+                              authController.user.cpf = value;
+                            },
                             textInputType: TextInputType.number,
                             validator: cpfValidator,
                           ),
                           SizedBox(
                             height: 50,
-                            child: GetX<AuthController>(
-                              builder: (authController) {
+                            child: Obx(
+                              () {
                                 return ElevatedButton(
                                   style: ElevatedButton.styleFrom(
                                     shape: RoundedRectangleBorder(
@@ -106,27 +122,22 @@ class SignUpScreen extends StatelessWidget {
                                       : () {
                                           FocusScope.of(context).unfocus();
 
-                                          if (_formKey.currentState!.validate()) {
-                                            // Get.offNamed(PagesRoutes.baseRoute);
-                                            String email = emailController.text;
-                                            String password = passController.text;
-                                            String cell = cellController.text;
-                                            String cpf = cpfController.text;
-                                            String name = nameController.text;
-                                          //   authController.signUp(
-                                          //       email: email,
-                                          //       password: password,
-                                          //       name: name,
-                                          //       cpf: cpf,
-                                          //       cell: cell);
-                                          // }
+                                          if (_formKey.currentState!
+                                              .validate()) {
+                                            _formKey.currentState!.save();
+
+                                            // print(authController.user);
+                                            authController.signUp();
+                                          }
                                         },
-                                  child: authController.isLoading.isTrue ? CircularProgressIndicator() : const Text(
-                                    'Cadastrar',
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                    ),
-                                  ),
+                                  child: authController.isLoading.isTrue
+                                      ? const CircularProgressIndicator()
+                                      : const Text(
+                                          'Cadastrar',
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                          ),
+                                        ),
                                 );
                               },
                             ),
