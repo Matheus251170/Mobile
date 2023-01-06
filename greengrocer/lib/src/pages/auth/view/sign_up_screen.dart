@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:greengrocer/src/pages/auth/controller/auth_controller.dart';
 import 'package:greengrocer/src/pages/widgets/custom_text_field.dart';
 import 'package:greengrocer/src/pages/auth/config/custom_colors.dart';
+import 'package:greengrocer/src/services/validators.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -61,80 +62,33 @@ class SignUpScreen extends StatelessWidget {
                         children: [
                           CustomTextField(
                             icon: Icons.email,
+                            textInputType: TextInputType.emailAddress,
                             label: 'Email',
-                            validator: (email) {
-                              if (email == null || email.isEmpty) {
-                                return "Insira um email válido!";
-                              }
-
-                              if (!email.isEmail) {
-                                return "Insira um email válido!";
-                              }
-
-                              return null;
-                            },
+                            validator: emailValidator,
                           ),
                           CustomTextField(
                             icon: Icons.lock,
                             label: 'Senha',
                             isPass: true,
-                            validator: (password) {
-                              if (password == null || password.isEmpty) {
-                                return "Insira uma senha!";
-                              }
-
-                              if (password.length < 7) {
-                                return "A senha deve ter 7 ou mais caracteres";
-                              }
-
-                              return null;
-                            },
+                            validator: passwordValidator,
                           ),
                           CustomTextField(
                             icon: Icons.person,
                             label: 'Nome',
-                            validator: (name) {
-                              if (name == null || name.isEmpty) {
-                                return "Insira um nome válido!";
-                              }
-
-                              if (name.length < 3) {
-                                return "Insira um nome válido!";
-                              }
-
-                              return null;
-                            },
+                            validator: nomeValidator,
                           ),
                           CustomTextField(
                             icon: Icons.phone,
                             inputFormatters: [phoneFormatter],
+                            textInputType: TextInputType.phone,
                             label: 'Celular',
-                            validator: (celular) {
-                              if (celular == null || celular.isEmpty) {
-                                return "Insira um email válido!";
-                              }
-
-                              if(celular.length < 11){
-                                return "Insira um email válido!";
-                              }
-                              return null;
-                            },
+                            validator: phoneValidator,
                           ),
                           CustomTextField(
                             icon: Icons.file_copy,
                             inputFormatters: [cpfFormatter],
                             label: 'CPF',
-                            validator: (cpf) {
-                              if (cpf == null || cpf.isEmpty) {
-                                return "Insira um CPF válido!";
-                              }
-
-                              if (!cpf.isCpf) {
-                                return "Insira um CPF válido!";
-                              }
-
-                              return null;
-                            },
+                            validator: cpfValidator,
                           ),
                           SizedBox(
                             height: 50,
