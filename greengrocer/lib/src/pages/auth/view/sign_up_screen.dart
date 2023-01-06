@@ -10,7 +10,7 @@ class SignUpScreen extends StatelessWidget {
   SignUpScreen({Key? key}) : super(key: key);
 
   final cpfFormatter = MaskTextInputFormatter(
-      mask: '###.###.###.-##', filter: {'#': RegExp(r'[0-9]')});
+      mask: '###.###.###-##', filter: {'#': RegExp(r'[0-9]')});
 
   final phoneFormatter = MaskTextInputFormatter(
       mask: '(##) # ####-####', filter: {'#': RegExp(r'[0-9]')});
@@ -60,19 +60,19 @@ class SignUpScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          CustomTextField(
+                          const CustomTextField(
                             icon: Icons.email,
                             textInputType: TextInputType.emailAddress,
                             label: 'Email',
                             validator: emailValidator,
                           ),
-                          CustomTextField(
+                          const CustomTextField(
                             icon: Icons.lock,
                             label: 'Senha',
                             isPass: true,
                             validator: passwordValidator,
                           ),
-                          CustomTextField(
+                          const CustomTextField(
                             icon: Icons.person,
                             label: 'Nome',
                             validator: nomeValidator,
@@ -88,6 +88,7 @@ class SignUpScreen extends StatelessWidget {
                             icon: Icons.file_copy,
                             inputFormatters: [cpfFormatter],
                             label: 'CPF',
+                            textInputType: TextInputType.number,
                             validator: cpfValidator,
                           ),
                           SizedBox(
@@ -112,15 +113,13 @@ class SignUpScreen extends StatelessWidget {
                                             String cell = cellController.text;
                                             String cpf = cpfController.text;
                                             String name = nameController.text;
-                                            authController.signUp(
-                                                email: email,
-                                                password: password,
-                                                name: name,
-                                                cpf: cpf,
-                                                cell: cell);
-                                          } else {
-                                            print("INVALIDO");
-                                          }
+                                          //   authController.signUp(
+                                          //       email: email,
+                                          //       password: password,
+                                          //       name: name,
+                                          //       cpf: cpf,
+                                          //       cell: cell);
+                                          // }
                                         },
                                   child: authController.isLoading.isTrue ? CircularProgressIndicator() : const Text(
                                     'Cadastrar',

@@ -15,14 +15,13 @@ class AuthController extends GetxController {
   UserModel user = UserModel();
 
   @override
-  void onInit(){
+  void onInit() {
     super.onInit();
 
     validateToken();
-
   }
 
-  void saveTokenAndProceedToBase() async{
+  void saveTokenAndProceedToBase() async {
     //salva o token
     utils.saveLocalData(key: StorageKeys.token, data: user.token!);
 
@@ -30,24 +29,24 @@ class AuthController extends GetxController {
     Get.offAllNamed(PagesRoutes.baseRoute);
   }
 
-  Future<void> validateToken() async{
+  Future<void> validateToken() async {
     String? token = await utils.getLocalData(key: StorageKeys.token);
 
-    if(token == null){
+    if (token == null) {
       Get.offAllNamed(PagesRoutes.signInRoute);
     } else {
       AuthResult result = await authRepository.validateToken(token);
 
-      result.when(success: (user){
+      result.when(success: (user) {
         this.user = user;
         saveTokenAndProceedToBase();
-      }, error: (message){
+      }, error: (message) {
         signOut();
       });
     }
   }
 
-  Future<void> signOut() async{
+  Future<void> signOut() async {
     //zerar o user
     user = UserModel();
 
@@ -70,7 +69,6 @@ class AuthController extends GetxController {
       this.user = user;
 
       saveTokenAndProceedToBase();
-
     }, error: (message) {
       utils.showToast(
           message: message,
@@ -79,17 +77,21 @@ class AuthController extends GetxController {
     });
   }
 
-  Future<void> signUp(
-      {required String email,
-      required String password,
-      required String name,
-      required String cpf,
-      required String cell}) async {
+  Future<void> signUp() async{
     isLoading.value = true;
 
-    await Future.delayed(
-      const Duration(seconds: 2),
-    );
+    // await Future.delayed(
+    //   const Duration(seconds: 2),
+    // );
+
+    AuthResult result = await authRepository.signUp(user);
+
+    result.when(success: (user){
+      this.user = user;
+      saveTokenAndProceedToBase();
+    }, error: (message){
+
+    });
 
     isLoading.value = false;
   }

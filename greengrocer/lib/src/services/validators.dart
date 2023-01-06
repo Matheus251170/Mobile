@@ -1,4 +1,6 @@
-String? emailValidator(email) {
+import 'package:get/get.dart';
+
+String? emailValidator(String? email) {
   if (email == null || email.isEmpty) {
     return "Insira um email válido!";
   }
@@ -22,7 +24,7 @@ String? passwordValidator(password) {
   return null;
 }
 
-String? nomeValidator(name) {
+String? nomeValidator(String? name) {
   if (name == null || name.isEmpty) {
     return "Insira um nome válido!";
   }
@@ -33,24 +35,24 @@ String? nomeValidator(name) {
 
   final names = name.split(' ');
 
-  if(names.lenght == 1) return 'Digite seu nome completo';
+  if(names.length == 1) return 'Digite seu nome completo';
 
   return null;
 }
 
-String? phoneValidator(celular) {
+String? phoneValidator(String? celular) {
   if (celular == null || celular.isEmpty) {
     return "Insira um celular válido!";
   }
 
-  if (!celular.isPhoneNumber) {
+  if (!celular.isPhoneNumber || celular.length < 14) {
     return "Insira um celular válido!";
   }
   return null;
 }
 
 
-String? cpfValidator(cpf) {
+String? cpfValidator(String? cpf) {
   if (cpf == null || cpf.isEmpty) {
     return "Insira um CPF válido!";
   }
