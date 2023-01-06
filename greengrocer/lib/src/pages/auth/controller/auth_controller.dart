@@ -14,6 +14,14 @@ class AuthController extends GetxController {
   final UtilsServices utils = UtilsServices();
   UserModel user = UserModel();
 
+  @override
+  void onInit(){
+    super.onInit();
+
+    validateToken();
+
+  }
+
   void saveTokenAndProceedToBase() async{
     //salva o token
     utils.saveLocalData(key: StorageKeys.token, data: user.token!);
@@ -32,6 +40,7 @@ class AuthController extends GetxController {
 
       result.when(success: (user){
         this.user = user;
+        saveTokenAndProceedToBase();
       }, error: (message){
         signOut();
       });

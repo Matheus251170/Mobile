@@ -5,7 +5,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 
 class PaymentDialog extends StatelessWidget {
   final OrderModel orderModel;
-  final UtilsServices utils = new UtilsServices();
+  final UtilsServices utils = UtilsServices();
 
   PaymentDialog({Key? key, required this.orderModel}) : super(key: key);
 
